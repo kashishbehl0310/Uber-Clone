@@ -18,7 +18,7 @@ export default class uberClone extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Root/>
+        <Root {...this.props}/>
       </View>
     );
   }
