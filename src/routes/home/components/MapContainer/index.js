@@ -16,3 +16,5 @@ export const MapContainer = ({region}) => {
         </View>
     )
 }
+
+export default MapContainer
