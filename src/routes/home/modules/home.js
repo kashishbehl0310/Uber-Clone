@@ -3,27 +3,13 @@ import constants from './actionConstants'
 import { Dimensions } from "react-native";
 
 const { height, width } = Dimensions.get("window")
-
-const LATITUDE_DELTA = 0.0922
-
 const ASPECT_RATIO = width / height
 
+const LATITUDE_DELTA = 0.0922
+const LONGITUDE_DELTA = ASPECT_RATIO * LATITUDE_DELTA
+
+
 const {GET_CURRENT_LOCATION } = constants;
-
-// export function setName(){
-//     return{
-//         type: SET_NAME,
-//         payload: "Kashish "
-//     }
-// }
-
-// function handleSetName(state, action){
-//     return update(state, {
-//         name: {
-//             $set: action.payload
-//         }
-//     })
-// }
 
 export function getCurrentLocation(){
     return(dispatch) => {
@@ -50,6 +36,12 @@ function handleGetCurrentLocation(state, action){
             },
             longitude: {
                 $set: action.payload.coords.longitude
+            },
+            latitudeDelta: {
+                $set: LATITUDE_DELTA
+            },
+            longitudeDelta: {
+                $set: LONGITUDE_DELTA
             }
         }
     })
@@ -58,7 +50,9 @@ function handleGetCurrentLocation(state, action){
 const ACTION_HANDLERS = {
     GET_CURRENT_LOCATION: handleGetCurrentLocation
 }
-const initalState = {}
+const initalState = {
+    region: {}
+}
 
 export function HomeReducer (state =initalState, action){
     const handler = ACTION_HANDLERS[action.type]
