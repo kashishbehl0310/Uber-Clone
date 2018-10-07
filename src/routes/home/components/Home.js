@@ -7,7 +7,7 @@ import MapContainer  from "./MapContainer";
 
 class Home extends React.Component{
     componentDidMount() {
-        this.props.setName()
+        this.props.getCurrentLocation()
     }
     render(){
         const region = {
