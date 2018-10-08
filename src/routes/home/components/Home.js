@@ -23,9 +23,6 @@ class Home extends React.Component{
                 <MapContainer region={this.props.region}/>
             }
         </Container>
-        // <View style={{flex: 1, justifyContent: "center", alignItems:"center"}}>
-        //     <Text>Hello {this.props.name}</Text>
-        // </View>
         ) 
     }
 }
