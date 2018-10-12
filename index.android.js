@@ -9,23 +9,87 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Dimensions
 } from 'react-native';
 
+import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
+let {width, height} = Dimensions.get('window')
+
+const ASPECT_RATIO = width/height
+const LATITUDE = 0;
+const LONGITUDE = 0;
+const LATITUDE_DELTA = 0.00922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
+
 export default class Taxi extends Component {
+  constructor(){
+    super();
+    this.state = {
+      latitude: 0,
+      longitude: 0,
+      latitudeDelta: LATITUDE_DELTA,
+      longitudeDelta: LATITUDE_DELTA
+    }
+  }
+
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        this.setState({
+          
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            longitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA
+          
+        });
+      },
+      (error) => console.log(error.message),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+    );
+    this.watchID = navigator.geolocation.watchPosition(
+      position => {
+        this.setState({
+          
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA
+          
+        });
+      }
+    );
+  }
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID)
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+        <MapView
+          provider = {PROVIDER_GOOGLE}
+          style= {styles.map}
+          showUserLocation = {true}
+          region = {{
+            latitude: this.state.latitude,
+            longitude: this.state.longitude,
+            latitudeDelta: this.state.latitudeDelta,
+            longitudeDelta: this.state.longitudeDelta
+          }}
+          onRegionChange = {region => this.setState({region})}
+          onRegionChangeComplete = {region => this.setState({region})}
+        >
+          <MapView.Marker
+              coordinate = {{
+                latitude: this.state.latitude,
+                longitude: this.state.longitude,
+                latitudeDelta: this.state.latitudeDelta,
+                longitudeDelta: this.state.longitudeDelta
+              }}
+            />
+        </MapView>
       </View>
     );
   }
@@ -37,6 +101,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+  },
+  map:{
+    flex: 1,
+    height: '100%',
+    width: '100%',
   },
   welcome: {
     fontSize: 20,

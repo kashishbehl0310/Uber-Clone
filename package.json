@@ -7,8 +7,10 @@
 		"test": "jest"
 	},
 	"dependencies": {
+		"prop-types": "^15.6.2",
 		"react": "16.0.0-alpha.6",
-		"react-native": "0.44.0"
+		"react-native": "0.44.0",
+		"react-native-maps": "^0.15.3"
 	},
 	"devDependencies": {
 		"babel-jest": "23.6.0",
