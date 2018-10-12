@@ -13,6 +13,8 @@ import {
   Dimensions
 } from 'react-native';
 
+import Root from "./src/main";
+
 import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
 let {width, height} = Dimensions.get('window')
 
@@ -68,28 +70,7 @@ export default class Taxi extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <MapView
-          provider = {PROVIDER_GOOGLE}
-          style= {styles.map}
-          showUserLocation = {true}
-          region = {{
-            latitude: this.state.latitude,
-            longitude: this.state.longitude,
-            latitudeDelta: this.state.latitudeDelta,
-            longitudeDelta: this.state.longitudeDelta
-          }}
-          onRegionChange = {region => this.setState({region})}
-          onRegionChangeComplete = {region => this.setState({region})}
-        >
-          <MapView.Marker
-              coordinate = {{
-                latitude: this.state.latitude,
-                longitude: this.state.longitude,
-                latitudeDelta: this.state.latitudeDelta,
-                longitudeDelta: this.state.longitudeDelta
-              }}
-            />
-        </MapView>
+        <Root {...this.props} />
       </View>
     );
   }
@@ -98,9 +79,6 @@ export default class Taxi extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
   map:{
     flex: 1,
