@@ -2,6 +2,7 @@ import React from "react";
 import { View } from "native-base";
 import MapView , {PROVIDER_GOOGLE} from "react-native-maps";
 import styles from "./MapContainerStyles";
+import SearchBox from "../SearchBox";
 
 export const MapContainer = ({region}) => {
     return(
@@ -16,6 +17,7 @@ export const MapContainer = ({region}) => {
                     pinColor="green"
                 />
             </MapView>
+            <SearchBox />
         </View>
     )
 }
