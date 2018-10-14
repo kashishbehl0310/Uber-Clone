@@ -4,7 +4,6 @@ import MapView , {PROVIDER_GOOGLE} from "react-native-maps";
 import styles from "./MapContainerStyles";
 
 export const MapContainer = ({region}) => {
-    console.log(region)
     return(
         <View style={styles.container}>
             <MapView
