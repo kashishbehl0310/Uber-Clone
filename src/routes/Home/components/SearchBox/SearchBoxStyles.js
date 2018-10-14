@@ -19,7 +19,7 @@ const styles = {
     secondInputWrapper:{
         marginLeft:15,
         marginRight:10,
-        marginTop:0,
+        marginTop:5,
         backgroundColor:"#fff",
         opacity:0.9,
         borderRadius:7
