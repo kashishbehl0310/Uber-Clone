@@ -11,7 +11,8 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const {
       SET_NAME,
       GET_CURRENT_LOCATION,
-      GET_INPUT
+      GET_INPUT,
+      TOGGLE_SEARCH_RESULT
       } = constants;
 
 /***********************Actions*********************/
@@ -41,6 +42,13 @@ export function getCurrentLocation(){
 export function getInputData(payload){
   return{
     type: GET_INPUT,
+    payload
+  }
+}
+
+export function toggleSearchResult(payload){
+  return{
+    type: TOGGLE_SEARCH_RESULT,
     payload
   }
 }
@@ -77,6 +85,33 @@ function handleGetInputData(state, action){
   });
 }
 
+function handleToggleSearchResult(state, action){
+  if(action.payload === 'pickUp'){
+    return update(state, {
+      resultTypes:{
+        pickUp: {
+          $set: true
+        },
+        dropOff:{
+          $set: false
+        }
+      }
+    });
+  }
+  if(action.payload === "dropOff"){
+    return update(state, {
+      resultTypes:{
+        pickUp: {
+          $set: false
+        },
+        dropOff:{
+          $set: true
+        }
+      }
+    })
+  }
+}
+
 function handleSetName(state, action){
   return update(state, {
     name: {
@@ -89,11 +124,13 @@ function handleSetName(state, action){
 const ACTION_HANDLERS = {
   SET_NAME:handleSetName ,
   GET_CURRENT_LOCATION: handleGetCurrentLocation,
-  GET_INPUT: handleGetInputData
+  GET_INPUT: handleGetInputData,
+  TOGGLE_SEARCH_RESULT: handleToggleSearchResult
 };
 const initialState = {
   region: {},
-  inputData: {}
+  inputData: {},
+  resultTypes: {}
 };
 
 export function HomeReducer(state = initialState, action) {
