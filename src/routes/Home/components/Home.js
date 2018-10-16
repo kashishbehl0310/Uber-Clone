@@ -21,7 +21,7 @@ class Home extends React.Component{
             // </View>
             <Container>
                 {this.props.region.latitude &&
-                    <MapContainer region={this.props.region} getInputData={this.props.getInputData  } />
+                    <MapContainer region={this.props.region} getInputData={this.props.getInputData} />
                 }
             </Container>
         );

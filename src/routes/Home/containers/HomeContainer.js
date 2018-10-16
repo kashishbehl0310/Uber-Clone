@@ -12,7 +12,7 @@ const mapStateToProps = (state) => ({
 const mapActionCreators = {
     setName,
     getCurrentLocation,
-    get
+    getInputData
 };
 
 export default connect(mapStateToProps, mapActionCreators)(Home);

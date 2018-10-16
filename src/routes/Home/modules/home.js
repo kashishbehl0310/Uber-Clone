@@ -40,7 +40,7 @@ export function getCurrentLocation(){
 
 export function getInputData(payload){
   return{
-    type:GET_INPUT,
+    type: GET_INPUT,
     payload
   }
 }
@@ -66,6 +66,17 @@ function handleGetCurrentLocation(state, action){
   })
 }
 
+function handleGetInputData(state, action){
+  const { key, value } = action.payload;
+  return update(state, {
+    inputData: {
+      [key]: {
+        $set: value
+      }
+    }
+  });
+}
+
 function handleSetName(state, action){
   return update(state, {
     name: {
@@ -74,16 +85,6 @@ function handleSetName(state, action){
   })
 }
 
-function handleGetInputData(state, action){
-  const {key, value } = action.payload;
-  return update(state, {
-    inputData:{
-      [key]:{
-        $set: value
-      }
-    }
-  })
-}
 
 const ACTION_HANDLERS = {
   SET_NAME:handleSetName ,
@@ -92,7 +93,7 @@ const ACTION_HANDLERS = {
 };
 const initialState = {
   region: {},
-  inputData:{}
+  inputData: {}
 };
 
 export function HomeReducer(state = initialState, action) {
