@@ -10,8 +10,11 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 const {
       SET_NAME,
-      GET_CURRENT_LOCATION
+      GET_CURRENT_LOCATION,
+      GET_INPUT
       } = constants;
+
+/***********************Actions*********************/
 
 export function setName(){
   return{
@@ -25,7 +28,7 @@ export function getCurrentLocation(){
     navigator.geolocation.getCurrentPosition(
       (position) => {
         dispatch({
-          type: "GET_CURRENT_LOCATION",
+          type: GET_CURRENT_LOCATION,
           payload: position
         });
       },
@@ -34,6 +37,15 @@ export function getCurrentLocation(){
     );
   }
 }
+
+export function getInputData(payload){
+  return{
+    type:GET_INPUT,
+    payload
+  }
+}
+
+/****************Action Handlers****************/
 
 function handleGetCurrentLocation(state, action){
   return update(state, {
@@ -62,12 +74,25 @@ function handleSetName(state, action){
   })
 }
 
+function handleGetInputData(state, action){
+  const {key, value } = action.payload;
+  return update(state, {
+    inputData:{
+      [key]:{
+        $set: value
+      }
+    }
+  })
+}
+
 const ACTION_HANDLERS = {
   SET_NAME:handleSetName ,
-  GET_CURRENT_LOCATION: handleGetCurrentLocation
+  GET_CURRENT_LOCATION: handleGetCurrentLocation,
+  GET_INPUT: handleGetInputData
 };
 const initialState = {
-  region: {}
+  region: {},
+  inputData:{}
 };
 
 export function HomeReducer(state = initialState, action) {

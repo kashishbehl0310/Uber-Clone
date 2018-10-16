@@ -5,7 +5,7 @@ import styles from "./MapContainerStyles";
 import SearchBox from "../SearchBox";
 import SearchResults from "../SearchResults";
 
-export const MapContainer = ({region}) => {
+export const MapContainer = ({region, getInputData}) => {
     return(
         <View style={styles.container}>
             <MapView
@@ -18,7 +18,7 @@ export const MapContainer = ({region}) => {
                     pinColor="green"
                 />
             </MapView>
-            <SearchBox />
+            <SearchBox getInputData={getInputData} />
             <SearchResults />
         </View>
     )
