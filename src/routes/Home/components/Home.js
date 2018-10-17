@@ -21,7 +21,13 @@ class Home extends React.Component{
             // </View>
             <Container>
                 {this.props.region.latitude &&
-                    <MapContainer region={this.props.region} getInputData={this.props.getInputData} toggleSearchResult={this.props.toggleSearchResult} />
+                    <MapContainer 
+                        region={this.props.region} 
+                        getInputData={this.props.getInputData} 
+                        toggleSearchResult={this.props.toggleSearchResult} 
+                        getAddressPredictions={this.props.getAddressPredictions}
+                        resultTypes = {this.props.resultTypes}
+                        />
                 }
             </Container>
         );

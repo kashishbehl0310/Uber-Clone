@@ -1,5 +1,6 @@
 import { Dimensions } from "react-native";
 import update from "react-addons-update";
+import RNGooglePlaces from "react-native-google-places";
 import constants from "./actionConstants";
 
 
@@ -12,7 +13,8 @@ const {
       SET_NAME,
       GET_CURRENT_LOCATION,
       GET_INPUT,
-      TOGGLE_SEARCH_RESULT
+      TOGGLE_SEARCH_RESULT,
+      GET_ADDRESS_PREDICTIONS
       } = constants;
 
 /***********************Actions*********************/
@@ -50,6 +52,22 @@ export function toggleSearchResult(payload){
   return{
     type: TOGGLE_SEARCH_RESULT,
     payload
+  }
+}
+
+export function getAddressPredictions(){
+  return(dispatch, store) => {
+    let userInput = store().home.resultTypes.pickUp ? store().home.resultTypes.pickUp : store().home.resultTypes.dropOff;
+    RNGooglePlaces.getAutocompletePredictions(userInput,{
+      country: "MY"
+    })
+      .then((results) => 
+        dispatch({
+          type: GET_ADDRESS_PREDICTIONS,
+          payload: results
+        })
+      )
+      .catch((error) => console.log(error.message))
   }
 }
 
@@ -95,6 +113,9 @@ function handleToggleSearchResult(state, action){
         dropOff:{
           $set: false
         }
+      },
+      predictions:{
+        $set: {}
       }
     });
   }
@@ -107,9 +128,20 @@ function handleToggleSearchResult(state, action){
         dropOff:{
           $set: true
         }
+      },
+      predictions:{
+        $set: {}
       }
     })
   }
+}
+
+function handleGetAddressPredictions(state, action){
+  return update(state, {
+    predictions: {
+      $set: action.payload
+    }
+  })
 }
 
 function handleSetName(state, action){
@@ -125,7 +157,8 @@ const ACTION_HANDLERS = {
   SET_NAME:handleSetName ,
   GET_CURRENT_LOCATION: handleGetCurrentLocation,
   GET_INPUT: handleGetInputData,
-  TOGGLE_SEARCH_RESULT: handleToggleSearchResult
+  TOGGLE_SEARCH_RESULT: handleToggleSearchResult,
+  GET_ADDRESS_PREDICTIONS: handleGetAddressPredictions
 };
 const initialState = {
   region: {},
