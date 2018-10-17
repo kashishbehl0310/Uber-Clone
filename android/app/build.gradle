@@ -128,6 +128,18 @@ android {
 dependencies {
     compile project(':react-native-google-places')
     compile project(':react-native-vector-icons')
+    compile ('com.google.android.gms:play-services-base:10.2.4') {
+         force = true;
+    }
+    compile ('com.google.android.gms:play-services-maps:10.2.4') {
+         force = true;
+    }
+    compile ('com.google.android.gms:play-services-places:10.2.4') {
+         force = true;
+    }
+    compile ('com.google.android.gms:play-services-location:10.2.4') {
+        force = true;
+    }
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+" 

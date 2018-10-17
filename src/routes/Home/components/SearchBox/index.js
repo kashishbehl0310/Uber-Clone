@@ -10,6 +10,7 @@ export const SearchBox = ({getInputData, toggleSearchResult, getAddressPredictio
             key,
             value: val
         });
+        getAddressPredictions();   
     }
     return(
         <View style={styles.searchBox}>

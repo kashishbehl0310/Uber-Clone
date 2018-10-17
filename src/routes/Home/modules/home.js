@@ -56,19 +56,21 @@ export function toggleSearchResult(payload){
 }
 
 export function getAddressPredictions(){
-  return(dispatch, store) => {
-    let userInput = store().home.resultTypes.pickUp ? store().home.resultTypes.pickUp : store().home.resultTypes.dropOff;
-    RNGooglePlaces.getAutocompletePredictions(userInput,{
-      country: "MY"
-    })
-      .then((results) => 
-        dispatch({
-          type: GET_ADDRESS_PREDICTIONS,
-          payload: results
-        })
-      )
-      .catch((error) => console.log(error.message))
-  }
+	return(dispatch, store)=>{
+		let userInput = store().home.resultTypes.pickUp ? store().home.inputData.pickUp : store().home.inputData.dropOff;
+		RNGooglePlaces.getAutocompletePredictions(userInput,
+			{
+				country:"IN"
+			}
+		)
+		.then((results)=>
+			dispatch({
+				type:GET_ADDRESS_PREDICTIONS,
+				payload:results
+			})
+		)
+		.catch((error)=> console.log(error.message));
+	};
 }
 
 /****************Action Handlers****************/
@@ -137,11 +139,11 @@ function handleToggleSearchResult(state, action){
 }
 
 function handleGetAddressPredictions(state, action){
-  return update(state, {
-    predictions: {
-      $set: action.payload
-    }
-  })
+	return update(state, {
+		predictions:{
+			$set:action.payload
+		}
+	})
 }
 
 function handleSetName(state, action){
