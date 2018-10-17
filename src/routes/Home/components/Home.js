@@ -27,6 +27,7 @@ class Home extends React.Component{
                         toggleSearchResult={this.props.toggleSearchResult} 
                         getAddressPredictions={this.props.getAddressPredictions}
                         resultTypes = {this.props.resultTypes}
+                        predictions = {this.props.predictions}
                         />
                 }
             </Container>

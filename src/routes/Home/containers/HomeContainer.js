@@ -14,7 +14,7 @@ const mapStateToProps = (state) => ({
     region: state.home.region,
     inputData: state.home.inputData || {},
     resultTypes: state.home.resultTypes || {},
-    predictions: state.home.predictions || {}
+    predictions: state.home.predictions || []
 })
 
 const mapActionCreators = {
