@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text } from "react-native";
 import { Container } from "native-base";
 import MapContainer from "./MapContainer";
+import HeaderComponent from "../../../components/HeaderComponent";
 
 class Home extends React.Component{
     componentDidMount(){
@@ -20,6 +21,7 @@ class Home extends React.Component{
             //     <Text>Hello {this.props.name}</Text>
             // </View>
             <Container>
+                <HeaderComponent />
                 {this.props.region.latitude &&
                     <MapContainer 
                         region={this.props.region} 
