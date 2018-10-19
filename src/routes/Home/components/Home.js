@@ -4,6 +4,7 @@ import { Container } from "native-base";
 import MapContainer from "./MapContainer";
 import HeaderComponent from "../../../components/HeaderComponent";
 
+const taxiLogo = require("../../../assets/img/taxi_logo_white.png")
 class Home extends React.Component{
     componentDidMount(){
         this.props.setName();
@@ -21,7 +22,7 @@ class Home extends React.Component{
             //     <Text>Hello {this.props.name}</Text>
             // </View>
             <Container>
-                <HeaderComponent />
+                <HeaderComponent logo={taxiLogo} />
                 {this.props.region.latitude &&
                     <MapContainer 
                         region={this.props.region} 
