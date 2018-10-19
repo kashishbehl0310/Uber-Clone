@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import { Container } from "native-base";
 import MapContainer from "./MapContainer";
 import HeaderComponent from "../../../components/HeaderComponent";
+import FooterComponent from "../../../components/FooterComponent";
 
 const taxiLogo = require("../../../assets/img/taxi_logo_white.png")
 class Home extends React.Component{
@@ -33,6 +34,7 @@ class Home extends React.Component{
                         predictions = {this.props.predictions}
                         />
                 }
+                <FooterComponent />
             </Container>
         );
     }
