@@ -3,7 +3,7 @@ var width = Dimensions.get("window").width;
 
 const styles = {
     searchResultsWrapper:{
-        top:210, 
+        top:150, 
         position:"absolute",
         width:width,
         height: 1000,

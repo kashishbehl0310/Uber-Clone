@@ -6,7 +6,8 @@ import {
         getCurrentLocation, 
         getInputData, 
         toggleSearchResult,
-        getAddressPredictions 
+        getAddressPredictions,
+        getSelectedAddress
     } from '../modules/home';
 
 const mapStateToProps = (state) => ({
@@ -22,7 +23,8 @@ const mapActionCreators = {
     getCurrentLocation,
     getInputData, 
     toggleSearchResult,
-    getAddressPredictions
+    getAddressPredictions,
+    getSelectedAddress
 };
 
 export default connect(mapStateToProps, mapActionCreators)(Home);

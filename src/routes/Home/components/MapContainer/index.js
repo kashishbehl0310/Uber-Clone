@@ -5,7 +5,7 @@ import styles from "./MapContainerStyles";
 import SearchBox from "../SearchBox";
 import SearchResults from "../SearchResults";
 
-export const MapContainer = ({region, getInputData, toggleSearchResult, getAddressPredictions, resultTypes, predictions}) => {
+export const MapContainer = ({region, getInputData, toggleSearchResult, getAddressPredictions, resultTypes, predictions, getSelectedAddress}) => {
     return(
         <View style={styles.container}>
             <MapView
@@ -23,7 +23,7 @@ export const MapContainer = ({region, getInputData, toggleSearchResult, getAddre
                 toggleSearchResult={toggleSearchResult} 
                 getAddressPredictions={getAddressPredictions} />
             { (resultTypes.pickUp || resultTypes.dropOff) &&
-                <SearchResults predictions={predictions} />
+                <SearchResults predictions={predictions} getSelectedAddress={getSelectedAddress} />
             }
         </View>
     )

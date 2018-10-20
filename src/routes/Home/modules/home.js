@@ -14,7 +14,8 @@ const {
       GET_CURRENT_LOCATION,
       GET_INPUT,
       TOGGLE_SEARCH_RESULT,
-      GET_ADDRESS_PREDICTIONS
+      GET_ADDRESS_PREDICTIONS,
+      GET_SELECTED_ADDRESS
       } = constants;
 
 /***********************Actions*********************/
@@ -71,6 +72,19 @@ export function getAddressPredictions(){
 		)
 		.catch((error)=> console.log(error.message));
 	};
+}
+
+export function getSelectedAddress(payload){
+  return(dispatch, store) => {
+    RNGooglePlaces.lookUpPlaceByID(payload)
+      .then((results) => {
+        dispatch({
+          type: GET_SELECTED_ADDRESS,
+          payload: results
+        })
+      })
+      .catch((error)=> console.log(error.message))
+  }
 }
 
 /****************Action Handlers****************/
@@ -146,6 +160,17 @@ function handleGetAddressPredictions(state, action){
 	})
 }
 
+function handleGetSelectedAddress(state, action){
+  let selectedTitle = state.resultTypes.pickUp ? "selectedPickUp" : "selectedDropOff";
+  return update(state, {
+    selectedAddress: {
+      [selectedTitle]: {
+        $set: action.payload
+      }
+    }
+  })
+}
+
 function handleSetName(state, action){
   return update(state, {
     name: {
@@ -160,12 +185,14 @@ const ACTION_HANDLERS = {
   GET_CURRENT_LOCATION: handleGetCurrentLocation,
   GET_INPUT: handleGetInputData,
   TOGGLE_SEARCH_RESULT: handleToggleSearchResult,
-  GET_ADDRESS_PREDICTIONS: handleGetAddressPredictions
+  GET_ADDRESS_PREDICTIONS: handleGetAddressPredictions,
+  GET_SELECTED_ADDRESS: handleGetSelectedAddress
 };
 const initialState = {
   region: {},
   inputData: {},
-  resultTypes: {}
+  resultTypes: {},
+  selectedAddress: {}
 };
 
 export function HomeReducer(state = initialState, action) {
