@@ -2,6 +2,7 @@ import { Dimensions } from "react-native";
 import update from "react-addons-update";
 import RNGooglePlaces from "react-native-google-places";
 import constants from "./actionConstants";
+import request from "../../../util/request";
 
 
 let {width , height} = Dimensions.get("window");
@@ -15,7 +16,8 @@ const {
       GET_INPUT,
       TOGGLE_SEARCH_RESULT,
       GET_ADDRESS_PREDICTIONS,
-      GET_SELECTED_ADDRESS
+      GET_SELECTED_ADDRESS,
+      GET_DISTANCE_MATRIX
       } = constants;
 
 /***********************Actions*********************/
@@ -82,6 +84,23 @@ export function getSelectedAddress(payload){
           type: GET_SELECTED_ADDRESS,
           payload: results
         })
+      })
+      .then(() => {
+        if(store().home.selectedAddress.selectedPickUp && store().home.selectedAddress.selectedDropOff){
+            request.get("https://maps.googleapis.com/maps/api/distancematrix/json")
+              .query({
+                origins: store().home.selectedAddress.selectedPickUp.latitude + "," + store().home.selectedAddress.selectedPickUp.longitude,
+                destinations: store().home.selectedAddress.selectedDropOff.latitude + "," + store().home.selectedAddress.selectedDropOff.longitude,
+                mode: "driving",
+                key: "AIzaSyAjL_doMA-BBX1S-Lx_BJXrPAjQCFh3UrM"
+              })
+              .finish((error, res) => {
+                dispatch({
+                  type: GET_DISTANCE_MATRIX,
+                  payload: res.body
+                })
+              })
+        }
       })
       .catch((error)=> console.log(error.message))
   }
@@ -167,6 +186,22 @@ function handleGetSelectedAddress(state, action){
       [selectedTitle]: {
         $set: action.payload
       }
+    },
+    resultTypes: {
+      pickUp: {
+        $set: false
+      },
+      dropOff: {
+        $set: false
+      }
+    }
+  })
+}
+
+function handleGetDistanceMatrix(state, action){
+  return update(state, {
+    distanceMatrix: {
+      $set: action.payload
     }
   })
 }
@@ -186,7 +221,8 @@ const ACTION_HANDLERS = {
   GET_INPUT: handleGetInputData,
   TOGGLE_SEARCH_RESULT: handleToggleSearchResult,
   GET_ADDRESS_PREDICTIONS: handleGetAddressPredictions,
-  GET_SELECTED_ADDRESS: handleGetSelectedAddress
+  GET_SELECTED_ADDRESS: handleGetSelectedAddress,
+  GET_DISTANCE_MATRIX: handleGetDistanceMatrix
 };
 const initialState = {
   region: {},
