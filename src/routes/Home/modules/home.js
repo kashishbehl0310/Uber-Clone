@@ -19,7 +19,8 @@ const {
       GET_ADDRESS_PREDICTIONS,
       GET_SELECTED_ADDRESS,
       GET_DISTANCE_MATRIX,
-      GET_FARE
+      GET_FARE,
+      BOOK_CAR
       } = constants;
 
 /***********************Actions*********************/
@@ -41,7 +42,7 @@ export function getCurrentLocation(){
         });
       },
       (error) => console.log('An error occured ' + error.message),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+      {enableHighAccuracy: true, timeout: 20000}
     );
   }
 }
@@ -128,6 +129,42 @@ export function getSelectedAddress(payload){
       })
       .catch((error)=> console.log(error.message))
   }
+}
+
+
+export function bookCar(){
+	return (dispatch, store)=>{
+		const payload = {
+			data:{
+				userName:"eman",
+				pickUp:{
+					address:store().home.selectedAddress.selectedPickUp.address,
+					name:store().home.selectedAddress.selectedPickUp.name,
+					latitude:store().home.selectedAddress.selectedPickUp.latitude,
+					longitude:store().home.selectedAddress.selectedPickUp.latitude
+				},
+				dropOff:{
+					address:store().home.selectedAddress.selectedDropOff.address,
+					name:store().home.selectedAddress.selectedDropOff.name,
+					latitude:store().home.selectedAddress.selectedDropOff.latitude,
+					longitude:store().home.selectedAddress.selectedDropOff.latitude
+				},
+				fare:store().home.fare,
+				status:"pending"
+			}
+		};
+
+		request.post("http://localhost:3000/api/bookings")
+		.send(payload)
+		.finish((error, res)=>{
+      console.log(res);
+			// dispatch({
+			// 	type:BOOK_CAR,
+			// 	payload:res.body
+			// });
+		});
+
+	};
 }
 
 /****************Action Handlers****************/
@@ -238,6 +275,14 @@ function handelGetFare(state, action){
   })
 }
 
+function handleBookCar(state, action){
+  return update(state, {
+    booking: {
+      $set:action.payload
+    }
+  })
+}
+
 function handleSetName(state, action){
   return update(state, {
     name: {
@@ -255,7 +300,8 @@ const ACTION_HANDLERS = {
   GET_ADDRESS_PREDICTIONS: handleGetAddressPredictions,
   GET_SELECTED_ADDRESS: handleGetSelectedAddress,
   GET_DISTANCE_MATRIX: handleGetDistanceMatrix,
-  GET_FARE: handelGetFare
+  GET_FARE: handelGetFare,
+  BOOK_CAR: handleBookCar
 };
 const initialState = {
   region: {},

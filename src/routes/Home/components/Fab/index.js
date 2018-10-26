@@ -1,4 +1,4 @@
-import react from "react";
+import React from "react";
 import { Text } from "react-native";
 import { View, Button } from "native-base";
 

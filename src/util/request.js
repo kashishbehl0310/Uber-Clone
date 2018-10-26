@@ -1,4 +1,3 @@
-
 const request = require("superagent");
 const defaultAjaxTimeout = 30000;
 //const cookie = require("cookie");
