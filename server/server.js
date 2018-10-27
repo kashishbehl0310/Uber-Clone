@@ -7,10 +7,10 @@ var bookings = require('./routes/bookings')
 
 var app = express();
 
-var port = 3000;
 
-app.listen(port, () => {
-    console.log(`App listening on port ${port} `)
+var server = app.listen(process.env.PORT || 7777, function(){
+    var port = server.address().port;
+    console.log(`App listening on port ${port}`);
 })
 
 app.set('views', path.join(__dirname, "views"))

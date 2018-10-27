@@ -154,14 +154,19 @@ export function bookCar(){
 			}
 		};
 
-		request.post("http://localhost:3000/api/bookings")
+		request.post("https://taxiap.herokuapp.com/api/bookings")
 		.send(payload)
 		.finish((error, res)=>{
-      console.log(res);
-			// dispatch({
-			// 	type:BOOK_CAR,
-			// 	payload:res.body
-			// });
+      if(error){
+        console.log("error :" + error)
+      }else{
+          console.log(res);
+          dispatch({
+          type:BOOK_CAR,
+          payload:res.body
+        });
+      }
+			
 		});
 
 	};

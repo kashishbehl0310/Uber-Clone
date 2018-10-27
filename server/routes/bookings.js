@@ -13,19 +13,24 @@ router.get('/bookings' , (req, res, next) => {
     })
 })
 
-router.post('/bookings', (req, res, next) => {
-    var booking = req.body.data;
-    if(!booking.username){
-        res.status(400);
-        res.send('Bad data')
-    }else{
-        db.bookings.save(booking, function(err, result){
-            if(err){
-                console.log(err)
-            }
-            res.json(result)
-        })
-    }
-})
+
+router.post("/bookings", function(req, res, next){
+	var booking = req.body.data;
+
+	if(!booking.userName){
+		res.status(400);
+		res.json({
+			error:"Bad data"
+		});	
+	} else {
+		db.bookings.save(booking, function(err, savedBooking){
+			if(err){
+				res.send(err);
+			}
+			res.json(savedBooking);
+		});
+	}
+});
+
 
 module.exports = router;
