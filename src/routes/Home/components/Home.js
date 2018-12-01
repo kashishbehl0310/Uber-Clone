@@ -23,7 +23,7 @@ class Home extends React.Component{
         return(
             // <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
             //     <Text>Hello {this.props.name}</Text>
-            // </View>
+            // </View> 
             <Container>
                 <HeaderComponent logo={taxiLogo} />
                 {this.props.region.latitude &&

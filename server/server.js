@@ -6,12 +6,13 @@ var routes = require('./routes/index')
 var bookings = require('./routes/bookings')
 
 var app = express();
+var socket = require('socket.io')
+var io = socket(); 
+var port = process.env.PORT || 7777;
 
-
-var server = app.listen(process.env.PORT || 7777, function(){
-    var port = server.address().port;
-    console.log(`App listening on port ${port}`);
-})
+io.listen (app.listen(port, function(){
+    console.log(`Server running on port ${port}`);   
+}))
 
 app.set('views', path.join(__dirname, "views"))
 app.set("view engine", "ejs")
