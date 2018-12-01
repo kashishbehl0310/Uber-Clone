@@ -35,6 +35,22 @@
             var socket = io();
             socket.on("connect", () => {
                 console.log(socket.id)
+                var driverCurrentData = {  
+                    "socketId": socket.id,
+                    "locationId":"593a66b6734d1d141ca655e1"
+                }
+                $.ajax({
+                    type: "PUT",
+                    url: "/api/driverLocationSocket/" + driverCurrentData.locationId,
+                    dataType: "json",
+                    data: driverCurrentData
+                }).done(function(response){
+                    if(response !== ""){
+                        console.log("success")
+                    }else{
+                        console.log("error" + response)
+                    }
+                })
             })
         </script>
 </body>
