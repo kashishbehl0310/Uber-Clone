@@ -136,7 +136,7 @@ export function bookCar(){
 	return (dispatch, store)=>{
 		const payload = {
 			data:{
-				userName:"eman",
+				userName:"Kashish",
 				pickUp:{
 					address:store().home.selectedAddress.selectedPickUp.address,
 					name:store().home.selectedAddress.selectedPickUp.name,

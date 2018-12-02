@@ -25,7 +25,7 @@ router.get("/driverLocationSocket", (req, res, next) => {
 		});
 
 	}else{
-        console.log(req.params.id)
+		console.log(req.params.id)
 		db.driversLocation.update({_id:mongojs.ObjectId(req.params.id)}, 
 			{$set: {socketId:req.body.socketId}}, function(err, updateDetails){
 				if(err){
