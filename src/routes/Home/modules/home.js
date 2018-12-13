@@ -177,8 +177,8 @@ export function getNearByDrivers(){
 	return(dispatch, store)=>{
 		request.get("https://taxiap.herokuapp.com/api/driversLocationService")
 		.query({
-			latitude:10.779401,
-			longitude:106.623001	
+			latitude:store().home.region.latitude,
+			longitude:store().home.region.longitude	
 		})
 		.finish((error, res)=>{
 			if(res){

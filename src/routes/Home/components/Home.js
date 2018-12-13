@@ -8,6 +8,7 @@ import Fare from "./Fare";
 import Fab from "./Fab";
 
 const taxiLogo = require("../../../assets/img/taxi_logo_white.png")
+const carMarker = require("../../../assets/img/carMarker.png");
 class Home extends React.Component{
     componentDidMount() {
 		var rx = this;
@@ -40,6 +41,8 @@ class Home extends React.Component{
                         predictions = {this.props.predictions}
                         getSelectedAddress = {this.props.getSelectedAddress}
                         selectedAddress={this.props.selectedAddress}
+                        carMarker={carMarker}
+						nearByDrivers={this.props.nearByDrivers}
                         />
                 }
                 <Fab onPressACtion={() => this.props.bookCar()} />
