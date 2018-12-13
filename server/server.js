@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 var routes = require('./routes/index')
 var bookings = require('./routes/bookings')
 var driversLocation = require('./routes/driverLocation')
+var driverLocationService = require('./routes/driverLocation')
 
 var app = express();
 var socket = require('socket.io')
@@ -25,3 +26,4 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use("/", routes)
 app.use("/api", bookings)
 app.use("/api", driversLocation)
+app.use("/api", driverLocationService)

@@ -20,7 +20,8 @@ const {
       GET_SELECTED_ADDRESS,
       GET_DISTANCE_MATRIX,
       GET_FARE,
-      BOOK_CAR
+      BOOK_CAR,
+      GET_NEARBY_DRIVERS
       } = constants;
 
 /***********************Actions*********************/
@@ -172,6 +173,27 @@ export function bookCar(){
 	};
 }
 
+export function getNearByDrivers(){
+	return(dispatch, store)=>{
+		request.get("https://taxiap.herokuapp.com/api/driversLocationService")
+		.query({
+			latitude:10.779401,
+			longitude:106.623001	
+		})
+		.finish((error, res)=>{
+			if(res){
+				dispatch({
+					type:GET_NEARBY_DRIVERS,
+					payload:res.body
+				});
+			}
+
+		});
+	};
+}
+
+
+
 /****************Action Handlers****************/
 
 function handleGetCurrentLocation(state, action){
@@ -296,6 +318,14 @@ function handleSetName(state, action){
   })
 }
 
+function handleGetNearbyDrivers(state,action){
+  return update(state, {
+    nearByDrivers: {
+      $set: action.payload
+    }
+  })
+}
+
 
 const ACTION_HANDLERS = {
   SET_NAME:handleSetName ,
@@ -306,7 +336,8 @@ const ACTION_HANDLERS = {
   GET_SELECTED_ADDRESS: handleGetSelectedAddress,
   GET_DISTANCE_MATRIX: handleGetDistanceMatrix,
   GET_FARE: handelGetFare,
-  BOOK_CAR: handleBookCar
+  BOOK_CAR: handleBookCar,
+  GET_NEARBY_DRIVERS: handleGetNearbyDrivers
 };
 const initialState = {
   region: {},

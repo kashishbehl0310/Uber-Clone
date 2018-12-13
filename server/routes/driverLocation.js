@@ -41,30 +41,24 @@ router.get("/driverLocationSocket", (req, res, next) => {
 });
 
 router.get("/driversLocationService", (req,res, next) => {
-	db.driversLocation.ensureIndex({
-		"coordinates": "2dsphere"
-	});
+	db.driversLocation.ensureIndex({"coordinate":"2dsphere"});
 	db.driversLocation.find({
-		"coordinate":{
-			"$near":{
-				"$geometry": {
-					"type": "Point",
-					"coordinates": [
-						parseFloat(req.query.longitude),
-						parseFloat(req.query.latitude)	
-					]
-				},
-				"$maxDistance": 10000
+			"coordinate":{
+				"$near":{
+					"$geometry":{
+						"type":"Point",
+						"coordinates": [parseFloat(req.query.longitude), parseFloat(req.query.latitude)]
+					},
+					"$maxDistance":10000
+				}
 			}
 		}, function(err, location){
 			if(err){
 				res.send(err);
-				console.log(`An error occured ${err}`);
+
 			}else{
 				res.send(location);
-				console.log(location)
 			}
-		}
-	})
+	});
 })
  module.exports = router;

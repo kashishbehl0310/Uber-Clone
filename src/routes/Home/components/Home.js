@@ -9,10 +9,14 @@ import Fab from "./Fab";
 
 const taxiLogo = require("../../../assets/img/taxi_logo_white.png")
 class Home extends React.Component{
-    componentDidMount(){
-        this.props.setName();
-        this.props.getCurrentLocation();
-    }
+    componentDidMount() {
+		var rx = this;
+		this.props.getCurrentLocation();
+		setTimeout(function(){
+			rx.props.getNearByDrivers();
+
+		}, 1000);
+	}
     render(){
         const region = {
             latitude: 12.9718915,
