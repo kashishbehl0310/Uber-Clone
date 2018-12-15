@@ -186,7 +186,9 @@ export function getNearByDrivers(){
 					type:GET_NEARBY_DRIVERS,
 					payload:res.body
 				});
-			}
+			}else{
+        console.log(`An error occured ${error}`)
+      }
 
 		});
 	};
