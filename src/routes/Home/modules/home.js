@@ -135,6 +135,8 @@ export function getSelectedAddress(payload){
 
 export function bookCar(){
 	return (dispatch, store)=>{
+    const nearByDrivers = store().home.nearByDrivers;
+    const nearByDriver = nearByDrivers[Math.floor(Math.random() * nearByDrivers.length)]
 		const payload = {
 			data:{
 				userName:"Kashish",
@@ -152,7 +154,13 @@ export function bookCar(){
 				},
 				fare:store().home.fare,
 				status:"pending"
-			}
+      },
+      nearByDriver: {
+        socketId: nearByDriver.socketId,
+        driverId: nearByDriver.driverId,
+        latitude: nearByDriver.coordinate.coordinates[1],
+        longitude: nearByDriver.coordinate.coordinates[0]
+      }
 		};
 
 		request.post("https://taxiap.herokuapp.com/api/bookings")

@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import makeRootReducer from "./reducers";
 import { createLogger } from "redux-logger";
 import createSocketIoMiddleware from 'redux-socket.io'
+import io  from 'socket.io-client/dist/socket.io'
 // import io from 'socket.io';
 
 let socket = io('http://localhost:7777', {jsonp: false})

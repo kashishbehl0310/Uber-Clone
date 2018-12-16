@@ -51,6 +51,12 @@
                         console.log("error" + response)
                     }
                 })
+                var driverRequest = socket.id + "DriverRequest";
+                socket.on(driverRequest, function(passengerData){
+                    if(passengerData){
+                        console.log("Passenger looking for driver", passengerData);
+                    }
+                })
             })
         </script>
 </body>
