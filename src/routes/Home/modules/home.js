@@ -163,7 +163,7 @@ export function bookCar(){
       }
 		};
 
-		request.post("https://taxiap.herokuapp.com/api/bookings")
+		request.post("https://localhost:7777/api/bookings")
 		.send(payload)
 		.finish((error, res)=>{
       if(error){
