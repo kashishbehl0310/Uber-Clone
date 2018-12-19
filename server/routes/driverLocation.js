@@ -5,6 +5,8 @@
  var db = mongojs("mongodb://kashish:kash123#@ds141613.mlab.com:41613/taxiapp", ["driversLocation"])
 
 router.get("/driverLocationSocket", (req, res, next) => {
+	res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     db.driversLocation.find((err, details) => {
         if(err){
             console.log(err)
@@ -16,7 +18,8 @@ router.get("/driverLocationSocket", (req, res, next) => {
 
 
  router.put("/driverLocationSocket/:id", function(req, res, next){
-
+	res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	var io = req.app.io;
 	if(!req.body){
 		res.status(400);
@@ -41,6 +44,8 @@ router.get("/driverLocationSocket", (req, res, next) => {
 });
 
 router.get("/driversLocationService", (req,res, next) => {
+	res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	db.driversLocation.ensureIndex({"coordinate":"2dsphere"});
 	db.driversLocation.find({
 			"coordinate":{

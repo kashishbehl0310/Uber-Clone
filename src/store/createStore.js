@@ -6,7 +6,7 @@ import { createLogger } from "redux-logger";
 import createSocketIoMiddleware from 'redux-socket.io';
 import io from 'socket.io-client/dist/socket.io'
 
-let socket = io('https://localhost:7777', {jsonp: false});
+let socket = io('https://localhost:5000', {jsonp: false});
 let socketIoMiddleware = createSocketIoMiddleware(socket, "server/")
 
 const log = createLogger({diff: true, collapsed: true});
