@@ -34,18 +34,18 @@ export function setName(){
 }
 
 export function getCurrentLocation(){
-  return(dispatch) => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        dispatch({
-          type: GET_CURRENT_LOCATION,
-          payload: position
-        });
-      },
-      (error) => console.log('An error occured ' + error.message),
-      {enableHighAccuracy: true, timeout: 20000}
-    );
-  }
+	return(dispatch)=>{
+		navigator.geolocation.getCurrentPosition(
+			(position)=>{
+				dispatch({
+					type:GET_CURRENT_LOCATION,
+					payload:position
+				});
+			},
+			(error)=> console.log(error.message),
+			{enableHighAccuracy: true, timeout: 20000}
+		);
+	}
 }
 
 export function getInputData(payload){
@@ -204,22 +204,22 @@ export function getNearByDrivers(){
 /****************Action Handlers****************/
 
 function handleGetCurrentLocation(state, action){
-  return update(state, {
-    region: {
-      latitude:{
-        $set: action.payload.coords.latitude
-      },
-      longitude: {
-        $set: action.payload.coords.longitude
-      },
-      latitudeDelta:{
-        $set: LATITUDE_DELTA
-      },
-      longitudeDelta:{
-        $set: LONGITUDE_DELTA
-      }
-    }
-  })
+	return update(state, {
+		region:{
+			latitude:{
+				$set:action.payload.coords.latitude
+			},
+			longitude:{
+				$set:action.payload.coords.longitude
+			},
+			latitudeDelta:{
+				$set:LATITUDE_DELTA
+			},
+			longitudeDelta:{
+				$set:LONGITUDE_DELTA
+			}
+		}
+	})
 }
 
 function handleGetInputData(state, action){
