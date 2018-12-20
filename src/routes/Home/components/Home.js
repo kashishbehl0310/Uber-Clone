@@ -32,7 +32,7 @@ class Home extends React.Component{
             //     <Text>Hello {this.props.name}</Text>
             // </View> 
             <Container>
-                {   false &&
+                { (status !== 'pending') && 
                     <View style={{flex:1}}>
                         <HeaderComponent logo={taxiLogo} />
                         {this.props.region.latitude &&
@@ -54,11 +54,13 @@ class Home extends React.Component{
                             this.props.fare &&
                             <Fare fare={this.props.fare} />
                         }
+        
                         <FooterComponent />
                     </View>
                     ||
-                    <FindDriver selectedAddress={this.props.selectedAddress} /> 
+                    <FindDriver selectedAddress={this.props.selectedAddress} />
                 }
+                
             </Container>
         );
     }
