@@ -18,6 +18,7 @@
 		"react-native-google-places": "^2.1.0",
 		"react-native-maps": "^0.15.3",
 		"react-native-router-flux": "^3.39.1",
+		"react-native-spinkit": "^1.1.1",
 		"react-native-vector-icons": "^4.1.1",
 		"react-redux": "^5.0.7",
 		"redux": "^3.6.0",
