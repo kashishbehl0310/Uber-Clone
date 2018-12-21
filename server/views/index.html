@@ -52,13 +52,35 @@
                     }
                 })
                 console.log("hello")
+                
                 var driverRequest = socket.id + "driverRequest";
                 console.log("driver request" + driverRequest)
                 socket.on(driverRequest, function(passengerData){
                     if(passengerData){
                         console.log("Passenger looking for a driver", passengerData);
+                        $('.btn').click(function(e){
+                            var status = $("#bookingStatus").val();
+                            var dataToSend = {
+                                "driverId": "593a65fc734d1d141ca6557d",
+                                "id": passengerData._id,
+                                "status": status
+                            };
+                            $.ajax({
+                                type: "PUT",
+                                url: "/api/bookings" + passengerData._id,
+                                dataType: "json",
+                                data: dataToSend
+                            }).done(function (response){
+                                if(response !== ""){
+                                    console.log("Success")
+                                }else{
+                                    console.log("Error " + response)
+                                }
+                            })
+                        })
                     }
                 })
+                
             })
         </script>
 </body>
