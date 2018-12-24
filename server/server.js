@@ -7,6 +7,7 @@ var routes = require('./routes/index')
 var bookings = require('./routes/bookings')
 var driversLocation = require('./routes/driverLocation')
 var driverLocationService = require('./routes/driverLocation')
+var drivers = require('./routes/drivers')
 var app = express();
 var socket = require('socket.io')
 var io = socket(); 
@@ -32,6 +33,7 @@ app.use("/", routes)
 app.use("/api", bookings)
 app.use("/api", driversLocation)
 app.use("/api", driverLocationService)
+app.use("/api", drivers);
 
 io.listen(app.listen(port, function(){
 	console.log("Server running on port", port);
