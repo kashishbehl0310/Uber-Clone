@@ -8,7 +8,8 @@ import {
 
 const mapStateToProps = (state) => ({
     name: state.home.name,
-    region: state.home.region
+    region: state.trckDriver.region,
+    selectedAddress: state.home.selectedAddress || {}
 })
 
 const mapActionCreators = {

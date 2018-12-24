@@ -1,12 +1,8 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { Container } from "native-base";
-import MapContainer from "./MapContainer";
+import MapTrack from './MapTrack';
 import HeaderComponent from "../../../components/HeaderComponent";
-import FooterComponent from "../../../components/FooterComponent";
-import Fare from "./Fare";
-import Fab from "./Fab";
-import FindDriver from './FindDriver';
 
 const taxiLogo = require("../../../assets/img/taxi_logo_white.png")
 const carMarker = require("../../../assets/img/carMarker.png");
@@ -23,11 +19,15 @@ class TrackDriver extends React.Component{
         }
         const { status } = this.props.booking;
         return(
-            // <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-            //     <Text>Hello {this.props.name}</Text>
-            // </View> 
             <Container>
-                <HeaderComponent logo={taxiLogo} />        
+                <HeaderComponent logo={taxiLogo} />  
+                {
+                    this.props.region.latitude &&
+                    <MapTrack 
+                        region={this.props.region.latitude}
+                        selectedAddress={this.props.selectedAddress}
+                    />   
+                }   
             </Container>
         );
     }

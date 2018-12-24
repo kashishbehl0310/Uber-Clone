@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { Container } from "native-base";
+import { Actions } from 'react-native-router-flux';
 import MapContainer from "./MapContainer";
 import HeaderComponent from "../../../components/HeaderComponent";
 import FooterComponent from "../../../components/FooterComponent";
@@ -18,7 +19,12 @@ class Home extends React.Component{
 			rx.props.getNearByDrivers();
 
 		}, 1000);
-	}
+    }
+    componentDidUpdate(prevProps, prevState){
+        if(this.props.booking.status === "confirmed"){
+            Actions.trackDriver({type="reset"});
+        }
+    }
     render(){
         const region = {
             latitude: 12.9718915,

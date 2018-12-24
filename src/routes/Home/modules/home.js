@@ -333,6 +333,14 @@ function handleGetNearbyDrivers(state,action){
   })
 }
 
+function handleConfirmBooking(state, action){
+  return update(state, {
+    booking: {
+      $set: action.payload
+    }
+  })
+}
+
 
 const ACTION_HANDLERS = {
   SET_NAME:handleSetName ,
@@ -344,7 +352,8 @@ const ACTION_HANDLERS = {
   GET_DISTANCE_MATRIX: handleGetDistanceMatrix,
   GET_FARE: handelGetFare,
   BOOK_CAR: handleBookCar,
-  GET_NEARBY_DRIVERS: handleGetNearbyDrivers
+  GET_NEARBY_DRIVERS: handleGetNearbyDrivers,
+  BOOKING_CONFIRMED: handleConfirmBooking
 };
 const initialState = {
   region: {},
