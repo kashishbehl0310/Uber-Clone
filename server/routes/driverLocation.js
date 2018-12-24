@@ -71,4 +71,46 @@ router.get("/driversLocationService/:id", (req, res, next) => {
 		io.emit("trackDriver", location)
 	})
 })
+router.put("/driversLocationService/:id", function(req, res, next){
+    var io = req.app.io;
+    var location = req.body;
+    var latitude = parseFloat(location.latitude);
+    var longitude = parseFloat(location.longitude);
+    if (!location){
+        res.status(400);
+        res.json({
+            "error":"Bad Data"
+        });
+    } else {
+        db.driversLocation.update({_id: mongojs.ObjectId(req.params.id)},{ $set: {
+        	socketId:location.socketId,
+        	coordinate:{
+                "type": "Point",
+        		coordinates:[
+                    longitude,
+        			latitude
+    			]
+    		}
+    	}}, function(err, updateDetails){
+        if (err){
+            console.log(updateDetails);
+            res.send(err);
+        }
+        if (updateDetails){
+
+            //Get updated location
+            db.driversLocation.findOne({_id:  mongojs.ObjectId(req.params.id)},function(error, updatedLocation){
+                if (error){
+                    res.send(error);
+                }
+                res.send(updatedLocation);
+                io.emit("action", {
+                    type:"UPDATE_DRIVER_LOCATION",
+                    payload:updatedLocation
+                });
+            });
+        }
+    });
+    }
+});
  module.exports = router;
