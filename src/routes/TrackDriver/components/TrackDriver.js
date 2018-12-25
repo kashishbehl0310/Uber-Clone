@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text } from "react-native";
 import { Container } from "native-base";
 import MapTrack from './MapTrack';
+import DriverFound from './DriverFound';
 import HeaderComponent from "../../../components/HeaderComponent";
 
 const taxiLogo = require("../../../assets/img/taxi_logo_white.png")
@@ -28,6 +29,12 @@ class TrackDriver extends React.Component{
                         selectedAddress={this.props.selectedAddress}
                     />   
                 }   
+                {
+                    this.props.showDriverFound &&
+                    <DriverFound 
+                        driverInfo={this.props.driverInfo}
+                    />
+                }
             </Container>
         );
     }
