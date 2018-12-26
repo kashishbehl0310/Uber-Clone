@@ -2,9 +2,9 @@ import React from "react";
 import { Text } from "react-native";
 import { View, Button, Icon } from "native-base";
 import StarRating from 'react-native-star-rating';
-import icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-import styles from "./DriverFooterStyles";
+import styles from "./DriverOnTheWayStyles";
 
 export const DriverFooterProfile = ({driverInfo, getDriverLocation}) => {
     const { profilePic, rating } = driverInfo|| '';
