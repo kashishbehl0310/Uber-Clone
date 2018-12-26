@@ -12,18 +12,11 @@ const LATITUDE_DELTA = 0.00922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 const {
-      SET_NAME,
-      GET_CURRENT_LOCATION
+			GET_CURRENT_LOCATION,
+			GET_DRIVER_INFORMATION
       } = constants;
 
 /***********************Actions*********************/
-
-export function setName(){
-  return{
-    type: SET_NAME,
-    payload: "Kashish"
-  }
-}
 
 export function getCurrentLocation(){
 	return(dispatch)=>{
@@ -37,6 +30,19 @@ export function getCurrentLocation(){
 			(error)=> console.log(error.message),
 			{enableHighAccuracy: true, timeout: 20000}
 		);
+	}
+}
+
+export function getDriverInfo(){
+	return(dispatch, store) => {
+			let id = store().home.booking.driverId;
+			request.get("https://taxiap.herokuapp.com/api/driver/" + id)
+				.finish((error,res) => {
+					dispatch({
+						type: GET_DRIVER_INFORMATION,
+						payload:res.body
+					})
+				})
 	}
 }
 
@@ -61,9 +67,17 @@ function handleGetCurrentLocation(state, action){
 	})
 }
 
+function handleGetDriverInfo(state, action){
+	return update(state, {
+		driverInfo: {
+			$set: action.payload
+		}
+	})
+}
+
 const ACTION_HANDLERS = {
-  SET_NAME:handleSetName ,
-  GET_CURRENT_LOCATION: handleGetCurrentLocation
+	GET_CURRENT_LOCATION: handleGetCurrentLocation,
+	GET_DRIVER_INFORMATION: handleGetDriverInfo
 };
 const initialState = {
   region: {}

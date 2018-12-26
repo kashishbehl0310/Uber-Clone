@@ -2,19 +2,19 @@ import { connect } from "react-redux";
 import Home from "../components/Home";
 
 import { 
-        setName, 
-        getCurrentLocation
-    } from '../modules/home';
+        getCurrentLocation,
+        getDriverInfo
+    } from '../modules/trackDriver';
 
 const mapStateToProps = (state) => ({
-    name: state.home.name,
     region: state.trckDriver.region,
-    selectedAddress: state.home.selectedAddress || {}
+    selectedAddress: state.home.selectedAddress || {},
+    driverInfo: state.home.driverInfo || {}
 })
 
 const mapActionCreators = {
-    setName,
-    getCurrentLocation
+    getCurrentLocation,
+    getDriverInfo
 };
 
 export default connect(mapStateToProps, mapActionCreators)(Home);
