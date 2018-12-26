@@ -6,32 +6,18 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from "./DriverOnTheWayStyles";
 
-export const DriverFooterProfile = ({driverInfo, getDriverLocation}) => {
-    const { profilePic, rating } = driverInfo|| '';
+export const DriverOnTheWayFooter = ({driverInfo, getDriverLocation}) => {
     const { vehicle } = driverInfo || {};
     return (
         <View style={styles.footerContainer}>
-            <View style={styles.imageContainer}>
-                <Image resizemode="contain" style={styles.driverPic} source={{uri:profilePic}} />
-            </View>
-            <View>
-                <StarRating 
-                    starSize={20}
-                    disabled={true}
-                    maxStars={5}
-                    rating={rating}
-                    starColor="#FF5E3A"
-                />
-            </View>
-            <View style={styles.iconContainer} />
             <View style={styles.iconContainer}>
-                <Icon name="phone" size={30} style={styles.icon} />
-            </View>
-            <View style={styles.iconContainer}>
-                <Icon name="comment-o" size={30} style={styles.icon} /> 
-            </View>
+                <Icon name="window-minimize" style={styles.icon} />
+                <Text style={styles.vehicleText}>i min</Text>
+                <Text style={styles.onWayText}>Your driver is on the way.</Text>
+                <Text style={styles.vehicleText}>{ vehicle && vehicle.plateNumber } { vehicle && vehicle.model }</Text>
+            </View>           
         </View>
     )
 }
 
-export default DriverFooterProfile;
+export default DriverOnTheWayFooter;

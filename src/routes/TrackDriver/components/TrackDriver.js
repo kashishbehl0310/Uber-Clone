@@ -4,13 +4,15 @@ import { Container } from "native-base";
 import MapTrack from './MapTrack';
 import DriverFound from './DriverFound';
 import DriverFooterProfile from './DriverFooterProfile';
+import DriverOnTheWayFooter from './DriverOnTheWayFooter';
 import HeaderComponent from "../../../components/HeaderComponent";
 
 const taxiLogo = require("../../../assets/img/taxi_logo_white.png")
 const carMarker = require("../../../assets/img/carMarker.png");
 class TrackDriver extends React.Component{
     componentDidMount() {
-		this.props.getCurrentLocation();
+        this.props.getCurrentLocation();
+        this.props.getDriverInfo();
 	}
     render(){
         const region = {
@@ -30,6 +32,9 @@ class TrackDriver extends React.Component{
                         selectedAddress={this.props.selectedAddress}
                     />   
                 }   
+                <DriverOnTheWayFooter 
+                    driverInfo={this.props.driverInfo}
+                />
                 <DriverFooterProfile 
                     driverInfo={this.props.driverInfo}
                 /> 
