@@ -13,7 +13,8 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 const {
 			GET_CURRENT_LOCATION,
-			GET_DRIVER_INFORMATION
+			GET_DRIVER_INFORMATION,
+			GET_DRIVER_LOCATION
       } = constants;
 
 /***********************Actions*********************/
@@ -43,6 +44,19 @@ export function getDriverInfo(){
 						payload:res.body
 					})
 				})
+	}
+}
+
+export function getDriverLocation(){
+	return(dispatch, store) => {
+		let id = store().home.booking.driverId;
+		request.get("https://taxiap.herokuapp.com/api/driverLocation"+id)
+			.finish((error, res)=> {
+				dispatch({
+					type: GET_DRIVER_LOCATION,
+					payload: res.body
+				})
+			})
 	}
 }
 
@@ -83,13 +97,29 @@ function handleUpdateDriverLocation(state, action){
 	})
 }
 
+function handleGetDriverLocation(state, action){
+	return update(state, {
+		driverLocation: {
+			$set: action.payload
+		},
+		showDriverFound: {
+			$set: false
+		},
+		showCarMarker: {
+			$set: true
+		}
+	})
+}
+
 const ACTION_HANDLERS = {
 	GET_CURRENT_LOCATION: handleGetCurrentLocation,
 	GET_DRIVER_INFORMATION: handleGetDriverInfo,
-	UPDATE_DRIVER_LOCATION: handleUpdateDriverLocation
+	UPDATE_DRIVER_LOCATION: handleUpdateDriverLocation,
+	GET_DRIVER_LOCATION: handleGetDriverLocation
 };
 const initialState = {
-  region: {}
+  region: {},
+  showDriverFound: true
 };
 
 export function TrackDriverReducer(state = initialState, action) {

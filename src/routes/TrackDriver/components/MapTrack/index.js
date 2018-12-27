@@ -7,11 +7,11 @@ import SearchResults from "../SearchResults";
 
 export const MapContainer = ({
         region,
-        driverLocation
+        driverLocation,
+        showCarMarker
     }) => {
 
     const { selectedPickUp, selectedDropOff } = selectedAddress || {};
-    const { showCarMarker } = showCarMarker;
     return(
         <View style={styles.container}>
             <MapView
