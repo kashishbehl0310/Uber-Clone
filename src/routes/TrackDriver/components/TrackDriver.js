@@ -30,6 +30,7 @@ class TrackDriver extends React.Component{
                     <MapTrack 
                         region={this.props.region.latitude}
                         selectedAddress={this.props.selectedAddress}
+                        driverLocation={this.props.driverLocation}
                     />   
                 }   
                 <DriverOnTheWayFooter 

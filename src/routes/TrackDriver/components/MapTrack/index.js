@@ -6,10 +6,12 @@ import SearchBox from "../SearchBox";
 import SearchResults from "../SearchResults";
 
 export const MapContainer = ({
-        region
+        region,
+        driverLocation
     }) => {
 
     const { selectedPickUp, selectedDropOff } = selectedAddress || {};
+    const { showCarMarker } = showCarMarker;
     return(
         <View style={styles.container}>
             <MapView
@@ -26,11 +28,20 @@ export const MapContainer = ({
                         pinColor="green"
                     />
                 }
-                 { selectedDropOff &&
+                { selectedDropOff &&
                     <MapView.Marker
                         coordinate={{
                             latitude: selectedDropOff.latitude,
                             longitude: selectedDropOff.longitude
+                        }}
+                        pinColor="red"
+                    />
+                }
+                { showCarMarker &&
+                    <MapView.Marker
+                        coordinate={{
+                            latitude: driverLocation.coordinate.coordinatess[1],
+                            longitude: driverLocation.coordinate.coordinatess[0]
                         }}
                         pinColor="red"
                     />
