@@ -7,9 +7,10 @@ import {
     } from '../modules/trackDriver';
 
 const mapStateToProps = (state) => ({
-    region: state.trckDriver.region,
-    selectedAddress: state.home.selectedAddress || {},
-    driverInfo: state.home.driverInfo || {}
+    region: state.trackDriver.region,
+    selectedAddress: state.trackDriver.selectedAddress || {},
+    driverInfo: state.trackDriver.driverInfo || {},
+    driverLocation: state.trackDriver.driverLocation || {}
 })
 
 const mapActionCreators = {

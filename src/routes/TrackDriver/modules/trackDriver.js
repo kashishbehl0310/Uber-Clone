@@ -75,9 +75,18 @@ function handleGetDriverInfo(state, action){
 	})
 }
 
+function handleUpdateDriverLocation(state, action){
+	return update(state, {
+		driverLocation: {
+			$set: action.payload
+		}
+	})
+}
+
 const ACTION_HANDLERS = {
 	GET_CURRENT_LOCATION: handleGetCurrentLocation,
-	GET_DRIVER_INFORMATION: handleGetDriverInfo
+	GET_DRIVER_INFORMATION: handleGetDriverInfo,
+	UPDATE_DRIVER_LOCATION: handleUpdateDriverLocation
 };
 const initialState = {
   region: {}
