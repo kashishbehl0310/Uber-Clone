@@ -23,9 +23,9 @@ class TrackDriver extends React.Component{
             <Container>
                 <HeaderComponent/>  
                 {
-                    this.props.region.latitude &&
+                    this.props.region &&
                     <MapTrack 
-                        region={this.props.region.latitude}
+                        region={this.props.region}
                         selectedAddress={this.props.selectedAddress}
                         driverLocation={this.props.driverLocation}
                         showCarMarker={this.props.showCarMarker}
@@ -42,6 +42,7 @@ class TrackDriver extends React.Component{
                     this.props.showDriverFound &&
                     <DriverFound 
                         driverInfo={this.props.driverInfo}
+                        getDriverLocation={this.props.getDriverLocation}
                     />
                 }
             </Container>

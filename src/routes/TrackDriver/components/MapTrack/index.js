@@ -6,7 +6,9 @@ import styles from "./MapTrackStyles";
 export const MapContainer = ({
         region,
         driverLocation,
-        showCarMarker
+        showCarMarker,
+        selectedAddress,
+        carMarker
     }) => {
 
     const { selectedPickUp, selectedDropOff } = selectedAddress || {};
@@ -40,8 +42,8 @@ export const MapContainer = ({
                         coordinate={{
                             latitude: driverLocation.coordinate.coordinatess[1],
                             longitude: driverLocation.coordinate.coordinatess[0]
-                        }}
-                        pinColor="red"
+                        }} 
+                        image={carMarker}
                     />
                 }
             </MapView>
