@@ -60,6 +60,15 @@ export function getDriverLocation(){
 	}
 }
 
+export function getDistanceFromDriver(){
+	return (dispatch, store) => {
+		request.get("https://maps.googleapis.com/maps/api/distancematrix/json")
+			.query({
+				origins: store().home.selectedAddress.selectedPickUp.latitude + ","
+			})
+	}
+}
+
 /****************Action Handlers****************/
 
 function handleGetCurrentLocation(state, action){
