@@ -50,7 +50,7 @@ export function getDriverInfo(){
 export function getDriverLocation(){
 	return(dispatch, store) => {
 		let id = store().home.booking.driverId;
-		request.get("https://taxiap.herokuapp.com/api/driverLocation"+id)
+		request.get("https://taxiap.herokuapp.com/api/driverLocation/"+id)
 			.finish((error, res)=> {
 				dispatch({
 					type: GET_DRIVER_LOCATION,

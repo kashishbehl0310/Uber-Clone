@@ -6,8 +6,6 @@ import DriverFound from './DriverFound';
 import DriverFooterProfile from './DriverFooterProfile';
 import DriverOnTheWayFooter from './DriverOnTheWayFooter';
 import HeaderComponent from "../../../components/HeaderComponent";
-
-const taxiLogo = require("../../../assets/img/taxi_logo_white.png")
 const carMarker = require("../../../assets/img/carMarker.png");
 class TrackDriver extends React.Component{
     componentDidMount() {
@@ -21,10 +19,9 @@ class TrackDriver extends React.Component{
             latitudeDelta: 0.00922,
             longitudeDelta: 0.0421
         }
-        const { status } = this.props.booking;
         return(
             <Container>
-                <HeaderComponent logo={taxiLogo} />  
+                <HeaderComponent/>  
                 {
                     this.props.region.latitude &&
                     <MapTrack 
@@ -32,6 +29,7 @@ class TrackDriver extends React.Component{
                         selectedAddress={this.props.selectedAddress}
                         driverLocation={this.props.driverLocation}
                         showCarMarker={this.props.showCarMarker}
+                        carMarker={carMarker}
                     />   
                 }   
                 <DriverOnTheWayFooter 
@@ -51,4 +49,4 @@ class TrackDriver extends React.Component{
     }
 }
 
-export default Home;
+export default TrackDriver;

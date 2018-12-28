@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import Home from "../components/Home";
+import TrackDriver from '../components/TrackDriver'
 
 import { 
         getCurrentLocation,
@@ -22,4 +22,4 @@ const mapActionCreators = {
     getDriverLocation
 };
 
-export default connect(mapStateToProps, mapActionCreators)(Home);
+export default connect(mapStateToProps, mapActionCreators)(TrackDriver);

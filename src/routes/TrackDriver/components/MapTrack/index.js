@@ -2,8 +2,6 @@ import React from "react";
 import { View } from "native-base";
 import MapView , {PROVIDER_GOOGLE} from "react-native-maps";
 import styles from "./MapTrackStyles";
-import SearchBox from "../SearchBox";
-import SearchResults from "../SearchResults";
 
 export const MapContainer = ({
         region,
