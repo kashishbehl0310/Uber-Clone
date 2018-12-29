@@ -11,7 +11,12 @@ class TrackDriver extends React.Component{
     componentDidMount() {
         this.props.getCurrentLocation();
         this.props.getDriverInfo();
-	}
+    }
+    componentWillReceiveProps(nextProps){
+        if(this.props.driverLocation && nextProps.driverLocation !== this.props.driverLocation){
+            this.props.getDistanceFromDriver()
+        }
+    }
     render(){
         const region = {
             latitude: 12.9718915,
