@@ -4,7 +4,8 @@ import TrackDriver from '../components/TrackDriver'
 import { 
         getCurrentLocation,
         getDriverInfo,
-        getDriverLocation
+        getDriverLocation,
+        getDistanceFromDriver
     } from '../modules/trackDriver';
 
 const mapStateToProps = (state) => ({
@@ -13,13 +14,15 @@ const mapStateToProps = (state) => ({
     driverInfo: state.trackDriver.driverInfo || {},
     driverLocation: state.trackDriver.driverLocation || {},
     showDriverFound: state.trackDriver.showDriverFound,
-    showCarMarker: state.trackDriver.showCarMarker
+    showCarMarker: state.trackDriver.showCarMarker,
+    distanceFromDriver: state.trackDriver.distanceFromDriver || {}
 })
 
 const mapActionCreators = {
     getCurrentLocation,
     getDriverInfo,
-    getDriverLocation
+    getDriverLocation,
+    getDistanceFromDriver 
 };
 
 export default connect(mapStateToProps, mapActionCreators)(TrackDriver);

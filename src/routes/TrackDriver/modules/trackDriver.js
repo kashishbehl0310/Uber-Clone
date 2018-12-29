@@ -62,10 +62,21 @@ export function getDriverLocation(){
 
 export function getDistanceFromDriver(){
 	return (dispatch, store) => {
-		request.get("https://maps.googleapis.com/maps/api/distancematrix/json")
-			.query({
-				origins: store().home.selectedAddress.selectedPickUp.latitude + ","
-			})
+		if(store().trackDriver.driverLocation){
+			request.get("https://maps.googleapis.com/maps/api/distancematrix/json")
+				.query({
+					origins: store().home.selectedAddress.selectedPickUp.latitude + "," + store().home.selectedAddress.selectedPickUp.longitude,
+                	destinations: store().trackDriver.driverLocation.coordinate.coordinates[1] + "," + store().trackDriver.driverLocation.coordinate.coordinates[0],
+                	mode: "driving",
+                	key: "AIzaSyAjL_doMA-BBX1S-Lx_BJXrPAjQCFh3UrM"
+				})
+				.finish((error, res) => {
+					dispatch({
+					  type: GET_DISTANCE_FROM_DRIVER,
+					  payload: res.body
+					})
+				  })
+		}
 	}
 }
 
@@ -120,11 +131,20 @@ function handleGetDriverLocation(state, action){
 	})
 }
 
+function handleGetDistanceFromDriver(state, action){
+	return update(state, {
+		distanceFromDriver: {
+			$set: action.payload
+		}
+	})
+}
+
 const ACTION_HANDLERS = {
 	GET_CURRENT_LOCATION: handleGetCurrentLocation,
 	GET_DRIVER_INFORMATION: handleGetDriverInfo,
 	UPDATE_DRIVER_LOCATION: handleUpdateDriverLocation,
-	GET_DRIVER_LOCATION: handleGetDriverLocation
+	GET_DRIVER_LOCATION: handleGetDriverLocation,
+	GET_DISTANCE_FROM_DRIVER: handleGetDistanceFromDriver
 };
 const initialState = {
   region: {},
