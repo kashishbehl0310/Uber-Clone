@@ -67,7 +67,7 @@
                             };
                             $.ajax({
                                 type: "PUT",
-                                url: "/api/bookings" + passengerData._id,
+                                url: "/api/bookings/" + passengerData._id,
                                 dataType: "json",
                                 data: dataToSend
                             }).done(function (response){
