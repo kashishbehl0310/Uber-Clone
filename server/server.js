@@ -1,38 +1,38 @@
-var express = require("express");
-var path = require("path");
-var bodyParser = require("body-parser");
+const express = require('express')
+const path = require('path')
+const bodyParser = require('body-parser')
+var cors = require('cors')
 
-var index = require("./routes/index");
-var bookings = require("./routes/bookings");
-var driverLocation = require("./routes/driverLocation");
-var drivers = require("./routes/drivers");
-
+var routes = require('./routes/index')
+var bookings = require('./routes/bookings')
+// var driversLocation = require('./routes/driverLocation')
+var driverLocation = require('./routes/driverLocation')
+var drivers = require('./routes/drivers')
 var app = express();
-
-var port = 3000;
-
-var socket_io = require("socket.io");
-
-var io = socket_io();
+var socket = require('socket.io')
+var io = socket(); 
+var port = process.env.PORT || 7777;
 
 
-//views
+app.use(cors())
 
-app.set("views",  path.join(__dirname, "views"));
-app.set("view engine", "ejs");
-app.engine("html", require("ejs").renderFile);
-
-//Body parser MW
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(function(req, res, next){
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+})
 
 
-//Routes
+app.set('views', path.join(__dirname, "views"))
+app.set("view engine", "ejs")
+app.engine("html", require("ejs").renderFile)
 
-app.use("/", index);
-app.use("/api", bookings);
-app.use("/api", driverLocation);
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
+app.use("/", routes)
+app.use("/api", bookings)
+app.use("/api", driverLocation)
+// app.use("/api", driverLocationService)
 app.use("/api", drivers);
 
 io.listen(app.listen(port, function(){
