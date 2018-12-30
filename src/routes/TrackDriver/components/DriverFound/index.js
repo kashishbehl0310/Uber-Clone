@@ -14,7 +14,7 @@ export const DriverFound = ({driverInfo, getDriverLocation}) => {
                 <Image resizemode="contain" style={styles.driverPic} source={{uri: profilePic}} />
                 <View style={styles.driverInfo}>
                     <Text style={styles.quotationMarkLeft} >""</Text>
-                    <View style={styles.driverBio}>
+                    <View style={styles.driverBio}> 
                         <Text style={styles.bioText}>
                             Hi my name is
                         </Text>

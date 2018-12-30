@@ -1,9 +1,7 @@
 import { connect } from "react-redux";
 import Home from "../components/Home";
 
-import { 
-        setName, 
-        getCurrentLocation, 
+import {getCurrentLocation, 
         getInputData, 
         toggleSearchResult,
         getAddressPredictions,
@@ -13,7 +11,6 @@ import {
     } from '../modules/home';
 
 const mapStateToProps = (state) => ({
-    name: state.home.name,
     region: state.home.region,
     inputData: state.home.inputData || {},
     resultTypes: state.home.resultTypes || {},
@@ -25,7 +22,6 @@ const mapStateToProps = (state) => ({
 })
 
 const mapActionCreators = {
-    setName,
     getCurrentLocation,
     getInputData, 
     toggleSearchResult,

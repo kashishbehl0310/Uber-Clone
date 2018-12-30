@@ -1,21 +1,14 @@
- var express = require('express')
- var router = express.Router();
- var mongojs = require('mongojs')
+var express = require("express");
+var router = express.Router();
+var mongojs = require("mongojs");
 
- var db = mongojs("mongodb://kashish:kash123#@ds141613.mlab.com:41613/taxiapp", ["driversLocation"])
-
-router.get("/driverLocationSocket", (req, res, next) => {
-    db.driversLocation.find((err, details) => {
-        if(err){
-            console.log(err)
-        }else{
-            res.json(details)
-        }
-    })
-})
+var db = mongojs("mongodb://kashish:kash123#@ds141613.mlab.com:41613/taxiapp", ["driversLocation"]);
 
 
- router.put("/driverLocationSocket/:id", function(req, res, next){
+//upadate driver socket id
+
+router.put("/driverLocationSocket/:id", function(req, res, next){
+
 	var io = req.app.io;
 	if(!req.body){
 		res.status(400);
@@ -24,22 +17,21 @@ router.get("/driverLocationSocket", (req, res, next) => {
 		});
 
 	}else{
-		console.log(req.params.id)
 		db.driversLocation.update({_id:mongojs.ObjectId(req.params.id)}, 
 			{$set: {socketId:req.body.socketId}}, function(err, updateDetails){
 				if(err){
-                    res.send(err);
-                    console.log(`An error occured ${err}`)
+					res.send(err);
 
 				}else{
-                    res.send(updateDetails);
-                    console.log(req.body)
+					res.send(updateDetails);
 				}
 		});
 	}
 });
 
-router.get("/driversLocationService", (req,res, next) => {
+
+//get nearby driver
+router.get("/driverLocation", function(req, res, next){
 	db.driversLocation.ensureIndex({"coordinate":"2dsphere"});
 	db.driversLocation.find({
 			"coordinate":{
@@ -59,19 +51,23 @@ router.get("/driversLocationService", (req,res, next) => {
 				res.send(location);
 			}
 	});
-})
 
-router.get("/driversLocationService/:id", (req, res, next) => {
+});
+
+//Get Single Driver and emit track by user to driver
+router.get("/driverLocation/:id", function(req, res, next){
 	var io = req.app.io;
-	db.driversLocation.findOne({driverId: req.params.id}, function(err, location){
-		if(err){
-			res.send(err)
-		}
-		res.send(location);
-		io.emit("trackDriver", location)
-	})
-})
-router.put("/driversLocationService/:id", function(req, res, next){
+    db.driversLocation.findOne({driverId: req.params.id},function(err, location){
+        if (err){
+            res.send(err);
+        }
+        res.send(location);
+        io.emit("trackDriver", location);
+    });
+});
+
+//Update Location by driver to user
+router.put("/driverLocation/:id", function(req, res, next){
     var io = req.app.io;
     var location = req.body;
     var latitude = parseFloat(location.latitude);
@@ -113,4 +109,5 @@ router.put("/driversLocationService/:id", function(req, res, next){
     });
     }
 });
- module.exports = router;
+
+module.exports = router;
