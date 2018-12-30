@@ -3,7 +3,6 @@ import update from "react-addons-update";
 import RNGooglePlaces from "react-native-google-places";
 import constants from "./actionConstants";
 import request from "../../../util/request";
-import calculateFare from "../../../util/fareCalculator";
 
 
 let {width , height} = Dimensions.get("window");
@@ -50,7 +49,7 @@ export function getDriverInfo(){
 export function getDriverLocation(){
 	return(dispatch, store) => {
 		let id = store().home.booking.driverId;
-		request.get("https://taxiap.herokuapp.com/api/driverLocation/"+id)
+		request.get("https://taxiap.herokuapp.com/api/driversLocationService/"+id)
 			.finish((error, res)=> {
 				dispatch({
 					type: GET_DRIVER_LOCATION,

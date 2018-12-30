@@ -10,7 +10,7 @@ import {
 
 const mapStateToProps = (state) => ({
     region: state.trackDriver.region,
-    selectedAddress: state.trackDriver.selectedAddress || {},
+    selectedAddress: state.home.selectedAddress || {},
     driverInfo: state.trackDriver.driverInfo || {},
     driverLocation: state.trackDriver.driverLocation || {},
     showDriverFound: state.trackDriver.showDriverFound,

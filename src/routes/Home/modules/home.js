@@ -21,7 +21,8 @@ const {
       GET_DISTANCE_MATRIX,
       GET_FARE,
       BOOK_CAR,
-      GET_NEARBY_DRIVERS
+      GET_NEARBY_DRIVERS,
+      BOOKING_CONFIRMED
       } = constants;
 
 /***********************Actions*********************/

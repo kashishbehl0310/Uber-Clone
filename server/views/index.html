@@ -51,7 +51,6 @@
                         console.log("error" + response)
                     }
                 })
-                console.log("hello")
                 
                 var driverRequest = socket.id + "driverRequest";
                 console.log("driver request" + driverRequest)
@@ -73,7 +72,7 @@
                             }).done(function (response){
                                 if(response !== ""){
                                     console.log("Success")
-                                    console.log("res : " + response)
+                                    console.log(response)
                                 }else{
                                     console.log("Error " + response)
                                 }
@@ -81,7 +80,7 @@
                         })
                     }
                 })
-                socket.on("trackDriver", function(location){
+             socket.on("trackDriver", function(location){
             var driverMovement = [{
                     lat:28.719196099999994,
                     long:77.1006616
@@ -128,7 +127,7 @@
                 };
                 $.ajax({
                     type: "PUT",
-                    url: "/api/driverLocation/" + location._id,
+                    url: "/api/driversLocationService/" + location._id,
                     dataType: "json",
                     data: driverCurrentLocation
                 }).done(function( response ) {
