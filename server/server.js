@@ -14,15 +14,6 @@ var io = socket();
 var port = process.env.PORT || 7777;
 
 
-app.use(cors())
-
-app.use(function(req, res, next){
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-})
-
-
 app.set('views', path.join(__dirname, "views"))
 app.set("view engine", "ejs")
 app.engine("html", require("ejs").renderFile)

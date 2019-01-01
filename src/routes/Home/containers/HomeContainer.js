@@ -7,7 +7,8 @@ import {getCurrentLocation,
         getAddressPredictions,
         getSelectedAddress,
         bookCar,
-        getNearByDrivers
+        getNearByDrivers,
+        getBookingStatus
     } from '../modules/home';
 
 const mapStateToProps = (state) => ({
@@ -28,7 +29,8 @@ const mapActionCreators = {
     getAddressPredictions,
     getSelectedAddress,
     bookCar,
-    getNearByDrivers
+    getNearByDrivers,
+    getBookingStatus
 };
 
 export default connect(mapStateToProps, mapActionCreators)(Home);

@@ -21,7 +21,7 @@ class Home extends React.Component{
 		}, 1000);
     }
     componentDidUpdate(prevProps, prevState) {
-        console.log(this.props.booking.status)
+        // this.props.getBookingStatus()
         if (this.props.booking.status === "confirmed" ){
             Actions.trackDriver({type: "reset"});
         }
