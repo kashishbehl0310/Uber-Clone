@@ -214,6 +214,7 @@ export function getNearByDrivers(){
 //Action Handlers
 //--------------------
 function handleGetCurrentLocation(state, action){
+	// console.log(region)
 	return update(state, {
 		region:{
 			latitude:{
@@ -368,7 +369,12 @@ const ACTION_HANDLERS = {
 
 }
 const initialState = {
-	region:{},
+	region:{
+		latitude: 77.13604666666667,
+		longitude: 28.712598333333336,
+		latitudeDelta: 0.00922,
+      	longitudeDelta: 0.0421
+	},
 	inputData:{},
 	resultTypes:{},
 	selectedAddress:{}

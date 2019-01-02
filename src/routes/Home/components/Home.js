@@ -27,12 +27,12 @@ class Home extends React.Component{
         }
 	}
     render(){
-        const region = {
-            latitude: 12.9718915,
-            longitude: 77.6411545,
-            latitudeDelta: 0.00922,
-            longitudeDelta: 0.0421
-        }
+        // const region = {
+        //     latitude: 77.13604666666667,
+        //     longitude: 28.712598333333336,
+        //     latitudeDelta: 0.00922,
+        //     longitudeDelta: 0.0421
+        // }
         const { status } = this.props.booking;
         return(
             // <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
